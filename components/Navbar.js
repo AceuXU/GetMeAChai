@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className='bg-gray-900 text-white flex justify-between items-center px-4 h-16 '>
       <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
-        <img src="tea.gif" width={58} alt="" />
+        <img className='invertImg' src="tea.gif" width={58} alt="" />
         <span>Get Me A Chai</span>
       </Link>
       {/* <ul className='flex justify-between gap-4'>
@@ -31,12 +31,12 @@ const Navbar = () => {
         </button>
 
           <div id="dropdown" className={`z-10 ${showdropdown ? "" : "hidden"} absolute left-[145px] bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
                 <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
               </li>
               <li>
-                <Link href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your page</Link>
+                <Link href={`${session.user.name}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your page</Link>
               </li>
               <li>
                 <Link onClick={() => signOut()} href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</Link>
