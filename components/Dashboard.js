@@ -2,29 +2,43 @@
 import React, { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
+import { fetchuser, updateProfile } from '@/actions/useractions'
 
 const Dashboard = () => {
-    const { data: session } = useSession()
+    const { data: session,} = useSession()
     const router = useRouter()
-    const [form, setForm] = useState({})
+    const [form, setform] = useState({})
 
     useEffect(() => {
         if (!session) {
             router.push('/login')
         }
+        else {
+            getData()
+        }
     }, [router, session])
 
+    const getData = async () => {
+        let u = await fetchuser(session.user.name)
+        setform(u)
+    }
+
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value })
+        setform({ ...form, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        let a = await updateProfile(e, session.user.name)
+        alert("Profile updated")
     }
 
 
     return (
         <>
-            <div className='dashboard container mx-auto py-1'>
-                <h1 className='text-center font-bold text-xl mt-2'>Welcome to the Dashboard, {session?.user?.name}!</h1>
+            <div className='container mx-auto py-1'>
+                <h1 className='text-center font-bold text-xl mt-2'>Welcome to the Dashboard!</h1>
 
-                <form className='max-w-[40%] mx-auto shadow-lg rounded-lg p-1  '>
+                <form className='max-w-[40%] mx-auto shadow-lg rounded-lg p-1 ' action={handleSubmit}>
                     {/* input for name */}
                     <div className='my-2'>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -42,27 +56,27 @@ const Dashboard = () => {
                     </div>
                     {/* input for profile picture of input type text */}
                     <div className='my-2'>
-                        <label htmlFor="profile" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile picture</label>
-                        <input value={form.profile ? form.profile : ""} onChange={handleChange} type="text" name='profile' id="profile" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                        <label htmlFor="profilepicpic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile picture</label>
+                        <input value={form.profilepic ? form.profilepic : ""} onChange={handleChange} type="text" name='profilepic' id="profilepic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
                     </div>
                     {/* input for cover  */}
                     <div className='my-2'>
-                        <label htmlFor="cover" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cover picture</label>
-                        <input value={form.cover ? form.cover : ""} onChange={handleChange} type="text" name='cover' id="cover" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                        <label htmlFor="coverpic" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cover picture</label>
+                        <input value={form.coverpic ? form.coverpic : ""} onChange={handleChange} type="text" name='coverpic' id="coverpic" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
                     </div>
                     {/* input for razorpay id  */}
                     <div className='my-2'>
                         <label htmlFor="razorpayid" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Razorpay Id</label>
-                        <input value={form.razorpayid ? form.razorpayid : ""} onChange={handleChange} type="text" name='razorpayid' id="razorpayid" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                        <input value={form.razorpayid ? form.razorpayid : ""} onChange={handleChange} type="password" name='razorpayid' id="razorpayid" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
                     </div>
                     {/* input for razorpay secret  */}
                     <div className='my-2'>
                         <label htmlFor="razorpaysecret" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Razorpay Secret</label>
-                        <input value={form.razorpaysecret ? form.razorpaysecret : ""} onChange={handleChange} type="text" name='razorpaysecret' id="razorpaysecret" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                        <input value={form.razorpaysecret ? form.razorpaysecret : ""} onChange={handleChange} type="password" name='razorpaysecret' id="razorpaysecret" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
                     </div>
-                    {/* Submit button  */}
+                    {/* Save button  */}
                     <div className='my-2'>
-                    <button type="button" className="w-full text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save</button>
+                        <button type="submit" className="w-full text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save</button>
                     </div>
                 </form>
             </div>

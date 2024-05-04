@@ -33,7 +33,7 @@ const PaymentPage = ({ username }) => {
         let orderId = a.id
 
         var options = {
-            "key": process.env.NEXT_PUBLIC_KEY_ID, // Enter the Key ID generated from the Dashboard
+            "key": currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
             "amount": amount,
             "currency": "INR",
             "name": "GetMeAChai", //your business name
@@ -64,9 +64,9 @@ const PaymentPage = ({ username }) => {
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
             <div className='cover w-full bg-red-50 relative'>
-                <img className='object-cover w-full h-[350px]' src="https://i.pinimg.com/564x/10/52/8d/10528d90850935729d010345d9b78c19.jpg" alt="" />
-                <div className='absolute -bottom-20 right-[45%] '>
-                    <img width={120} height={120} className=' border-white border-2 rounded-lg ' src="https://i.pinimg.com/736x/4f/e9/14/4fe914d247fddcaa026f22e64403cb03.jpg" alt="" />
+                <img className='object-cover w-full h-[350px]' src={currentUser.coverpic} alt="" />
+                <div className='absolute -bottom-20 right-[45%] border-white border-2 overflow-hidden rounded-full size-32'>
+                    <img className='rounded-full object-cover size-32' width={128} height={128} src={currentUser.profilepic} alt="" />
                 </div>
             </div>
             <div className="info flex justify-center items-center my-24 flex-col gap-2">
@@ -74,7 +74,7 @@ const PaymentPage = ({ username }) => {
                     {username}
                 </div>
                 <div className='text-slate-300'>
-                    Creating Animated art for VTT's
+                    Creating Animated video using after effects
                 </div>
                 <div className='text-slate-300'>
                     10,684 members. 83 posts. $15,640/release
@@ -85,6 +85,7 @@ const PaymentPage = ({ username }) => {
                         {/* Show the list of all the supporters as a leaderboard */}
                         <h2 className='my-5 text-center text-2xl font-bold'>Supporters</h2>
                         <ul className='mx-5 text-lg '>
+                            {payments.length == 0 && <li className='text-center'>No payments yet</li>}
                             {payments.map((p, i) => {
                                 return <li className='my-4 flex gap-2 items-center'>
                                     <img width={35} src="avatar.gif" alt="user avatar" />
@@ -105,7 +106,7 @@ const PaymentPage = ({ username }) => {
                             </div>
                             <input onChange={handleChange} value={paymentform.message} name='message' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Message' />
                             <input onChange={handleChange} value={paymentform.amount} name='amount' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Amount' />
-                            <button onClick={() => pay(Number.parseInt(paymentform.amount*100))} className='text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'>Pay</button>
+                            <button onClick={() => pay(Number.parseInt(paymentform.amount * 100))} className='text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:from-purple-100' disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4}>Pay</button>
                         </div>
 
                         {/* Or choose from these amounts */}
