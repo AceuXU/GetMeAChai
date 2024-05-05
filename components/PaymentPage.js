@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
+import { useSearchParams } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Slide } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 
 const PaymentPage = ({ username }) => {
@@ -10,10 +15,33 @@ const PaymentPage = ({ username }) => {
     const [paymentform, setPaymentform] = useState({})
     const [currentUser, setcurrentUser] = useState({})
     const [payments, setPayments] = useState([])
+    const searchParams = useSearchParams()
+    const router = useRouter()
+    
 
     useEffect(() => {
         getData()
     }, [])
+
+    useEffect(() => {
+        if (searchParams.get("paymentdone") == "true") {
+            toast('Payment has been made 💸!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Slide,
+            });
+        }
+
+        router.push(`${username}`)
+
+    }, [])
+
 
     const handleChange = (e) => {
         setPaymentform({ ...paymentform, [e.target.name]: e.target.value })
@@ -60,6 +88,19 @@ const PaymentPage = ({ username }) => {
 
     return (
         <>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                 />
 
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 

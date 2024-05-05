@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { fetchuser, updateProfile } from '@/actions/useractions'
+import { ToastContainer, Zoom, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
-    const { data: session,} = useSession()
+    const { data: session, } = useSession()
     const router = useRouter()
     const [form, setform] = useState({})
 
@@ -29,12 +31,37 @@ const Dashboard = () => {
 
     const handleSubmit = async (e) => {
         let a = await updateProfile(e, session.user.name)
-        alert("Profile updated")
+        toast.success('Profile updated 🦄!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Zoom,
+            });
     }
 
 
     return (
         <>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
+
             <div className='container mx-auto py-1'>
                 <h1 className='text-center font-bold text-xl mt-2'>Welcome to the Dashboard!</h1>
 
