@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { notFound } from "next/navigation"
 
 
 const PaymentPage = ({ username }) => {
@@ -86,6 +87,8 @@ const PaymentPage = ({ username }) => {
         rzp1.open();
     }
 
+
+
     return (
         <>
 
@@ -115,10 +118,10 @@ const PaymentPage = ({ username }) => {
                     {username}
                 </div>
                 <div className='text-slate-300'>
-                    Creating Animated video using after effects
+                    Lets help {username} get a chai!
                 </div>
                 <div className='text-slate-300'>
-                    10,684 members. 83 posts. $15,640/release
+                    {payments.length} Payments . ₹{payments.reduce((a,b) => a + b.amount, 0)} raised
                 </div>
 
                 <div className="payment flex gap-3 w-[80%] mt-11">
