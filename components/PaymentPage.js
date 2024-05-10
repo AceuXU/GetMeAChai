@@ -13,7 +13,7 @@ import { notFound } from "next/navigation"
 
 const PaymentPage = ({ username }) => {
     // const {data : session} = useSession()
-    const [paymentform, setPaymentform] = useState({})
+    const [paymentform, setPaymentform] = useState({name : ""})
     const [currentUser, setcurrentUser] = useState({})
     const [payments, setPayments] = useState([])
     const searchParams = useSearchParams()
@@ -109,8 +109,8 @@ const PaymentPage = ({ username }) => {
 
             <div className='cover w-full bg-red-50 relative'>
                 <img className='object-cover w-full h-[350px]' src={currentUser.coverpic} alt="" />
-                <div className='absolute -bottom-20 right-[45%] border-white border-2 overflow-hidden rounded-full size-32'>
-                    <img className='rounded-full object-cover size-32' width={128} height={128} src={currentUser.profilepic} alt="" />
+                <div className='absolute -bottom-20 right-[45%] border-white border-2 overflow-hidden rounded-full size-36'>
+                    <img className='rounded-full object-cover size-36' width={128} height={128} src={currentUser.profilepic} alt="" />
                 </div>
             </div>
             <div className="info flex justify-center items-center my-24 flex-col gap-2">
@@ -150,7 +150,7 @@ const PaymentPage = ({ username }) => {
                             </div>
                             <input onChange={handleChange} value={paymentform.message} name='message' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Message' />
                             <input onChange={handleChange} value={paymentform.amount} name='amount' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Amount' />
-                            <button onClick={() => pay(Number.parseInt(paymentform.amount * 100))} className='text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:from-purple-100' disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4}>Pay</button>
+                            <button onClick={() => pay(Number.parseInt(paymentform.amount * 100))} className='text-white bg-gradient-to-br from-purple-700 to-blue-800 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:from-purple-100' disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4 || paymentform.amount < 1}>Pay</button>
                         </div>
 
                         {/* Or choose from these amounts */}

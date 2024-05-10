@@ -45,7 +45,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-14">
           Learn more about us
         </h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/pirAW5DEKfU?si=hpJkbOP3bsEpPhf6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/zJec1826xiE?si=UwhdTtmQmDZhrT2Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </>
   );
