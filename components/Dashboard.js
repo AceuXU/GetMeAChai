@@ -62,7 +62,7 @@ const Dashboard = () => {
             />
 
 
-            <div className='container mx-auto py-1'>
+            <div className='container mx-auto py-1 px-6'>
                 <h1 className='text-center font-bold text-xl mt-2'>Welcome to the Dashboard!</h1>
 
                 <form className='max-w-[40%] mx-auto shadow-lg rounded-lg p-1 ' action={handleSubmit}>

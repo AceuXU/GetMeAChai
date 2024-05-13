@@ -8,10 +8,10 @@ const Navbar = () => {
   const [showdropdown, setShowdropdown] = useState(false)
 
   return (
-    <nav className='bg-gray-900 text-white flex justify-between items-center px-4 h-16 '>
+    <nav className='bg-gray-900 text-white flex justify-between items-center px-4 md:h-16 flex-col md:flex-row  '>
       <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
         <img className='invertImg' src="tea.gif" width={58} alt="" />
-        <span>Get Me A Chai</span>
+        <span className='text-xl md:text-base my-3 md:my-0 '>Get Me A Chai</span>
       </Link>
       {/* <ul className='flex justify-between gap-4'>
         <li>Home</li>
@@ -22,7 +22,7 @@ const Navbar = () => {
         <li>Login</li>
       </ul> */}
 
-      <div className=' relative'>
+      <div className=' relative flex flex-col md:block gap-3 '>
         {session && <> <button onClick={() => setShowdropdown(!showdropdown)} onBlur={()=> {setTimeout(() => {
           setShowdropdown(false)
         }, 100);}} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white mx-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Welcome {session.user.email} <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
