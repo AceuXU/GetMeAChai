@@ -5,7 +5,7 @@ const About = () => {
 
         <div className='bg-[#000000]bg - [radial - gradient(#ffffff33_1px,#00091d_1px)] bg - [size: 20px_20px]' >
             <div className=" min-h-screen flex  justify-center">
-                <div className="max-w-4xl mx-auto px-8 py-10">
+                <div className="max-w-4xl mx-auto px-8 md:px-4 py-10">
                     {/* About page on Get me a Chai */}
                     <h1 className="text-4xl font-bold text-center mb-8">About Get me a Chai</h1>
                     <h2 className="text-2xl font-bold mb-6 text-center gap-4">
